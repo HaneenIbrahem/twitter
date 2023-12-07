@@ -1,6 +1,6 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const executeQuery = require('./execute-query');
+const executeQuery = require('../support/execute-query');
 
 
 const app = express();

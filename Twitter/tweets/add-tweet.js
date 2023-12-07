@@ -1,6 +1,6 @@
 const express = require('express');
-const executeQuery = require('./execute-query');
-const authenticate = require('./authenticate');
+const executeQuery = require('../support/execute-query');
+const authenticate = require('../auth/authenticate');
 
 const app = express();
 app.use(express.json());

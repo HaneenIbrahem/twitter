@@ -1,7 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
-const generateToken = require('./generate-token');
-const executeQuery = require('./execute-query');
+const generateToken = require('../support/generate-token');
+const executeQuery = require('../support/execute-query');
 
 const app = express();
 app.use(express.json());

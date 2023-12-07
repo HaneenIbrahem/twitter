@@ -12,16 +12,17 @@ function authenticate(req) {
 
   try {
     const decodedToken = jwt.verify(token, '1234');
-    const userId = decodedToken.userId;
+    console.log('Decoded Token:', decodedToken);
+    const userId = decodedToken.sub; 
 
-    return { statusCode: 200, userId }; // Include userId in the authentication result
+    return { statusCode: 200, userId };
   } catch (error) {
-      if (error.name === 'TokenExpiredError') {
-        return { statusCode: 401, message: 'Token expired' };
-      } else {
-        return { statusCode: 401, message: 'Invalid or expired token' };
-      }  
+    if (error.name === 'TokenExpiredError') {
+      return { statusCode: 401, message: 'Token expired' };
+    } else {
+      return { statusCode: 401, message: 'Invalid or expired token' };
     }
+  }
 }
 
 module.exports = authenticate;
