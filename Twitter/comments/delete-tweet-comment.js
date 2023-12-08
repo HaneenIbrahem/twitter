@@ -2,11 +2,10 @@ const express = require('express');
 const executeQuery = require('../support/execute-query');
 const authenticate = require('../auth/authenticate');
 
-const app = express();
-app.use(express.json());
+const router = express.Router();
 
 // Delete tweet comment route
-app.delete("/delete-tweet-comment/:tweetId/:commentId", async (req, res) => {
+router.delete("/delete-tweet-comment/:tweetId/:commentId", async (req, res) => {
     try {
         // Authenticate the request
         const authResult = authenticate(req);
@@ -44,7 +43,4 @@ app.delete("/delete-tweet-comment/:tweetId/:commentId", async (req, res) => {
     }
 });
 
-// Start the server
-app.listen(4000, () => {
-    console.log('Server started on port 4000');
-});
+module.exports = router;

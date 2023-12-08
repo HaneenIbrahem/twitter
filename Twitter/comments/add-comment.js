@@ -2,11 +2,10 @@ const express = require('express');
 const executeQuery = require('../support/execute-query');
 const authenticate = require('../auth/authenticate');
 
-const app = express();
-app.use(express.json());
+const router = express.Router();
 
 // Add comment to tweet route
-app.post("/add-comment", async (req, res) => {
+router.post("/add-comment", async (req, res) => {
     try {
         // Authenticate the request
         const authResult = authenticate(req);
@@ -32,8 +31,4 @@ app.post("/add-comment", async (req, res) => {
         return res.status(500).json({ message: 'An error occurred while adding the comment', error });
     }
 });
-
-// Start the server
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
-});
+module.exports = router;

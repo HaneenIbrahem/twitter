@@ -2,18 +2,16 @@ const express = require('express');
 const executeQuery = require('../support/execute-query');
 const authenticate = require('../auth/authenticate');
 
-const app = express();
-app.use(express.json());
-
+const router = express.Router();
 // Retrieve specific user tweets route
-app.get("/user-tweets/:userId", async (req, res) => {
+router.get("/user-tweets/:userId", async (req, res) => {
     try {
         // Authenticate the request if needed
-        // const authResult = authenticate(req);
-        // if (authResult.statusCode !== 200) {
-        //     res.status(authResult.statusCode).json({ message: 'Authentication failed' });
-        //     return;
-        // }
+        const authResult = authenticate(req);
+        if (authResult.statusCode !== 200) {
+            res.status(authResult.statusCode).json({ message: 'Authentication failed' });
+            return;
+        }
 
         // Access the authenticated user's information if needed
         // const authenticatedUserID = authResult.userID;
@@ -40,7 +38,4 @@ app.get("/user-tweets/:userId", async (req, res) => {
     }
 });
 
-// Start the server
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
-});
+module.exports = router;

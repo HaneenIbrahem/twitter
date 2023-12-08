@@ -2,11 +2,10 @@ const express = require('express');
 const executeQuery = require('../support/execute-query');
 const authenticate = require('../auth/authenticate');
 
-const app = express();
-app.use(express.json());
+const router = express.Router();
 
 // Like tweet route
-app.post("/like-tweet/:tweetId", async (req, res) => {
+router.post("/like-tweet/:tweetId", async (req, res) => {
     try {
         // Authenticate the request
         const authResult = authenticate(req);
@@ -43,7 +42,4 @@ app.post("/like-tweet/:tweetId", async (req, res) => {
     }
 });
 
-// Start the server
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
-});
+module.exports = router;

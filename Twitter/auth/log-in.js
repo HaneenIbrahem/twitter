@@ -3,14 +3,13 @@ const bcrypt = require('bcrypt');
 const generateToken = require('../support/generate-token');
 const executeQuery = require('../support/execute-query');
 
-const app = express();
-app.use(express.json());
+const router = express.Router();
 
 const accessTokenSecret = '1234';
 const refreshTokenSecret = '1234';
 const refreshTokens = [];
 
-app.post('/log-in', async (req, res) => {
+router.post('/log-in', async (req, res) => {
     const {email, password} = req.body;
 
     try{
@@ -47,7 +46,4 @@ app.post('/log-in', async (req, res) => {
       }
 });
   
-  // Start the server
-  app.listen(3000, () => {
-    console.log('Server started on port 3000');
-  });
+module.exports = router;

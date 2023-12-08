@@ -3,11 +3,10 @@ const executeQuery = require('../support/execute-query');
 const bcrypt = require('bcrypt');
 const authenticate = require('./authenticate');
 
-const app = express();
-app.use(express.json());
+const router = express.Router();
 
 // Edit user info route
-app.put("/edit-user/:userId", async (req, res) => {
+router.put("/edit-user/:userId", async (req, res) => {
     try {
         // Authenticate the request
         const authResult = authenticate(req);
@@ -18,19 +17,16 @@ app.put("/edit-user/:userId", async (req, res) => {
         }
 
         // Access the authenticated user's information
-        // const authenticatedUserID = authResult.userId;
+        const authenticatedUserID = authResult.userId;
 
         // Get the user ID from the route parameter
-        const userId = req.params.userId;
-
-        // console.log("authenticatedUserID " + authenticatedUserID)
-        // console.log("userId " + userId)
+        const userId = parseInt(req.params.userId);
 
         // Ensure the authenticated user matches the requested user
-        // if (authenticatedUserID !== userId) {
-        //     res.status(403).json({ message: 'Unauthorized access to edit user information' });
-        //     return;
-        // }
+        if (authenticatedUserID !== userId) {
+            res.status(403).json({ message: 'Unauthorized access to edit user information' });
+            return;
+        }
 
         // Extract the fields to be updated from the request body
         const { username, email, newPassword } = req.body;
@@ -62,7 +58,4 @@ app.put("/edit-user/:userId", async (req, res) => {
     }
 });
 
-// Start the server
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
-});
+module.exports = router;

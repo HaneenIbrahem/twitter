@@ -2,11 +2,10 @@ const express = require('express');
 const executeQuery = require('../support/execute-query');
 const authenticate = require('../auth/authenticate');
 
-const app = express();
-app.use(express.json());
+const router = express.Router();
 
 // Retrieve tweet likes with paging route
-app.get("/tweet-likes/:tweetId", async (req, res) => {
+router.get("/tweet-likes/:tweetId", async (req, res) => {
     try {
         const tweetId = req.params.tweetId;
         const page = req.query.page || 1; // Default to page 1 if not specified
@@ -30,7 +29,4 @@ app.get("/tweet-likes/:tweetId", async (req, res) => {
     }
 });
 
-// Start the server
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
-});
+module.exports = router;

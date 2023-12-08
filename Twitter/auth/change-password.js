@@ -3,11 +3,10 @@ const executeQuery = require('../support/execute-query');
 const bcrypt = require('bcrypt');
 const authenticate = require('./authenticate');
 
-const app = express();
-app.use(express.json());
+const router = express.Router();
 
 // Change password route
-app.put("/change-password", async (req, res) => {
+router.put("/change-password", async (req, res) => {
     try {
         // Authenticate the request
         const authResult = authenticate(req);
@@ -55,7 +54,4 @@ app.put("/change-password", async (req, res) => {
     }
 });
 
-// Start the server
-app.listen(3000, () => {
-    console.log('Server started on port 3000');
-});
+module.exports = router;

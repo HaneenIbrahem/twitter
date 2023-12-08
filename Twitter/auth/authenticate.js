@@ -1,5 +1,3 @@
-// authenticate.js
-
 const jwt = require('jsonwebtoken');
 
 function authenticate(req) {
